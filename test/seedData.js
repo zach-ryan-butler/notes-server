@@ -14,7 +14,7 @@ const notes = [
     body: 'tim, maxwell, lisa'
   },
   {
-    title: 'cows',
+    title: 'Cows',
     body: 'spot, milk, giver'
   }
 ];
