@@ -55,6 +55,18 @@ describe('notes routes', () => {
       .then(res => {
         expect(res.body).toEqual(JSON.parse(JSON.stringify(note)));
       });
+  });
 
+  it('can update a note by id', async() => {
+    const notes = await seedData();
+    const note = notes[0];
+
+    return request(app)
+      .patch(`/api/v1/notes/${note._id}`)
+      .send({ body: 'im an updated note body' })
+      .then(res => {
+        const noteJSON = JSON.parse(JSON.stringify(note));
+        expect(res.body).toEqual({ ...noteJSON, title:  'im an updated note body' });
+      });
   });
 });
