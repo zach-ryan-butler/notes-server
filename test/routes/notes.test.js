@@ -43,8 +43,7 @@ describe('notes routes', () => {
       .get('/api/v1/notes')
       .then(res => {
         notes.forEach(note => {
-          const noteJSON = JSON.parse(JSON.stringify(note));
-          expect(res.body).toContainEqual(noteJSON);
+          expect(res.body).toContainEqual(JSON.parse(JSON.stringify(note)));
         });
         expect(res.body).toHaveLength(4);
       });
