@@ -45,4 +45,16 @@ describe('notes routes', () => {
         expect(res.body).toHaveLength(4);
       });
   });
+
+  it('can get a note by id', async() => {
+    const notes = await seedData();
+    const note = notes[0];
+
+    return request(app)
+      .get(`/api/v1/notes/${note._id}`)
+      .then(res => {
+        expect(res.body).toEqual(note);
+      });
+
+  });
 });
