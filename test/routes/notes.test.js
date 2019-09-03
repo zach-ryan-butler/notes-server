@@ -36,12 +36,16 @@ describe('notes routes', () => {
       });
   });
 
-  it('can get all notes', () => {
-    seedData();
+  it('can get all notes', async() => {
+    const notes = await seedData();
     
     return request(app)
       .get('/api/v1/notes')
       .then(res => {
+        notes.forEach(note => {
+          const noteJSON = JSON.parse(JSON.stringify(note));
+          expect(res.body).toContainEqual(noteJSON);
+        });
         expect(res.body).toHaveLength(4);
       });
   });
@@ -66,7 +70,7 @@ describe('notes routes', () => {
       .send({ body: 'im an updated note body' })
       .then(res => {
         const noteJSON = JSON.parse(JSON.stringify(note));
-        expect(res.body).toEqual({ ...noteJSON, title:  'im an updated note body' });
+        expect(res.body).toEqual({ ...noteJSON, body:  'im an updated note body' });
       });
   });
 });
