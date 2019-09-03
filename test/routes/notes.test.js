@@ -4,6 +4,7 @@ const request = require('supertest');
 const app = require('../../lib/app');
 const connect = require('../../lib/utils/connect');
 const mongoose = require('mongoose');
+const seedData = require('../seedData');
 
 describe('notes routes', () => {
   beforeAll(() => {
@@ -32,6 +33,16 @@ describe('notes routes', () => {
           body: 'im a really cool note',
           __v: 0
         });
+      });
+  });
+
+  it('can get all notes', () => {
+    seedData();
+    
+    return request(app)
+      .get('/api/v1/notes')
+      .then(res => {
+        expect(res.body).toHaveLength(4);
       });
   });
 });
