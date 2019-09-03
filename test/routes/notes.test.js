@@ -53,7 +53,7 @@ describe('notes routes', () => {
     return request(app)
       .get(`/api/v1/notes/${note._id}`)
       .then(res => {
-        expect(res.body).toEqual(note);
+        expect(res.body).toEqual(JSON.parse(JSON.stringify(note)));
       });
 
   });
