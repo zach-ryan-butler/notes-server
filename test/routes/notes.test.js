@@ -73,4 +73,15 @@ describe('notes routes', () => {
         expect(res.body).toEqual({ ...noteJSON, body:  'im an updated note body' });
       });
   });
+
+  it('can delete a note by id', async() => {
+    const notes = await seedData();
+    const note = notes[0];
+
+    return request(app)
+      .delete(`/api/v1/notes/${note._id}`)
+      .then(res => {
+        expect(res.body).toEqual(JSON.parse(JSON.stringify(note)));
+      });
+  });
 });
